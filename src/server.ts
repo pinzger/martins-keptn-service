@@ -46,7 +46,7 @@ server.setConfig((app: any) => {
     swagger.express({
       definition: {
         info: {
-          title: 'My Keptn Service',
+          title: 'Martin\'s Keptn Service',
           version: '0.2',
         },
         externalDocs: {
@@ -67,7 +67,7 @@ server.setErrorConfig((app: any) => {
       next: express.NextFunction,
     ) => {
       console.error(err.stack);
-      response.status(500).send('Something broke!');
+      response.status(500).send('Something broke in Martins keptn service!');
     },
   );
 });
