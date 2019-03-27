@@ -1,0 +1,72 @@
+# This is a very simple Knative Service that writes the input request to its log.
+
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: martins-keptn-service
+  namespace: keptn
+spec:
+  runLatest:
+    configuration:
+      build:
+        apiVersion: build.knative.dev/v1alpha1
+        kind: Build
+        metadata:
+          name: service-builder
+          namespace: keptn
+        spec:
+          serviceAccountName: pinzger
+          source:
+            git:
+              url: https://github.com/pinzger/martins-keptn-service
+              revision: master
+          template:
+            name: kaniko
+            arguments:
+              - name: IMAGE
+                value: docker-registry.keptn.svc.cluster.local:5000/keptn/martins-keptn-service:latest
+      revisionTemplate:
+        metadata:
+          annotations:
+            # Disable scale to zero with a minScale of 1.
+            autoscaling.knative.dev/minScale: "1"
+        spec:
+          container:
+            image: REGISTRY_URI_PLACEHOLDER:5000/keptn/martins-keptn-service:latest
+            env: 
+---
+
+# Subscription from the GcpPubSubSource's output Channel to the Knative Service below.
+
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Subscription
+metadata:
+  name: martin-keptn-channel-subscription
+  namespace: keptn
+spec:
+  channel:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Channel
+    name: keptn-channel
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1alpha1
+      kind: Service
+      name: martins-keptn-service
+
+---
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Subscription
+metadata:
+  name: martin-new-artefact-subscription
+  namespace: keptn
+spec:
+  channel:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Channel
+    name: new-artefact
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1alpha1
+      kind: Service
+      name: martins-keptn-service
