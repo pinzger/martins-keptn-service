@@ -1,16 +1,16 @@
 {
   "name": "simple-keptn-service",
   "version": "0.0.1",
-  "description": "",
+  "description": "Simple keptn service that listens and logs keptn events",
   "main": "dist/server.js",
   "scripts": {
     "clean": "rimraf dist/*",
-    "copy-assets": "cp -R src/views dist/",
-    "build": "npm-run-all clean lint tsc copy-assets",
+    "build": "npm-run-all clean lint tsc",
+    "start": "npm run serve",
     "serve": "node dist/server.js",
     "tsc": "tsc",
     "dev:start": "npm-run-all build serve",
-    "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
+    "dev": "nodemon --watch src -e ts --exec npm run dev:start",
     "test": "echo \"Testing...\" && nyc --reporter=text nyc mocha && nyc report",
     "lint": "tslint --project tslint.json"
   },

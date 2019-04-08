@@ -20,7 +20,7 @@ COPY . /usr/src/app
 RUN ls -la /usr/src/app/*
 
 RUN npm install
-RUN npm run build-ts
+RUN npm run tsc
 
 USER myuser
 CMD ["/usr/local/bin/npm", "start"]
