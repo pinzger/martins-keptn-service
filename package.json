@@ -1,5 +1,5 @@
 {
-  "name": "martins-keptn--service",
+  "name": "simple-keptn-service",
   "version": "0.0.1",
   "description": "",
   "main": "dist/server.js",
@@ -14,10 +14,7 @@
     "test": "echo \"Testing...\" && nyc --reporter=text nyc mocha && nyc report",
     "lint": "tslint --project tslint.json"
   },
-  "keywords": [
-    "pitometer"
-  ],
-  "author": "",
+  "author": "Martin Pinzger",
   "license": "Apache-2.0",
   "devDependencies": {
     "copyfiles": "^2.1.0",
@@ -49,7 +46,6 @@
     "kubernetes-client": "^6.11.0",
     "mocha": "^6.0.2",
     "moment": "^2.24.0",
-    "mongoose": "^5.4.21",
     "reflect-metadata": "^0.1.13",
     "typescript-collections": "^1.3.2"
   },
