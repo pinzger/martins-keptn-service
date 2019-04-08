@@ -1,4 +1,5 @@
-import { Controller } from './controller';
+import 'reflect-metadata';
+import { Controller } from '../src/controller/controller';
 import * as express from 'express';
 import { expect } from 'chai';
 import 'mocha';

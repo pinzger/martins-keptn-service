@@ -1,4 +1,4 @@
 --require source-map-support
 --full-trace
 --bail
-src/**/*.spec.ts
+test/**/*.spec.ts
