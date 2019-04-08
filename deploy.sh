@@ -2,7 +2,9 @@
 REGISTRY_URI=$(kubectl describe svc docker-registry -n keptn | grep IP: | sed 's~IP:[ \t]*~~')
 
 # Deploy service
-rm -f config/gen/service.yaml
+if [ -f config/gen/service.yaml ]; then
+  rm -f config/gen/service.yaml
+fi
 
 cat config/service.yaml | \
   sed 's~REGISTRY_URI_PLACEHOLDER~'"$REGISTRY_URI"'~' >> config/gen/service.yaml

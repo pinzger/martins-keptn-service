@@ -1,14 +1,14 @@
-import 'reflect-metadata';
-import { Controller } from './Controller';
 import * as express from 'express';
 import { expect } from 'chai';
 import 'mocha';
 import * as sinon from 'sinon';
-import { Service } from './Service';
 import { cleanUpMetadata } from 'inversify-express-utils';
+import { Service } from './service';
+import { Event } from '../models/event';
 
-describe('Controller', () => {
-
+describe('Service', () => {
+// tslint:disable-next-line: prefer-const
+  service: Service;
   beforeEach(() => {
     cleanUpMetadata();
   });

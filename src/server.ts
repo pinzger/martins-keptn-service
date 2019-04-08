@@ -1,61 +1,38 @@
+import 'reflect-metadata';
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import 'reflect-metadata';
 import { Container } from 'inversify';
 import {
   interfaces,
   InversifyExpressServer,
   TYPE,
 } from 'inversify-express-utils';
-import * as swagger from 'swagger-express-ts';
+
+// tslint:disable-next-line: import-name
+import TYPES from './constant/types';
+import { Service } from './service/service';
 
 // import controllers
-import './svc/Controller';
-
-// import models
-import './svc/RequestModel';
+import './controller/controller';
 
 // tslint:disable-next-line: import-name
 import RequestLogger = require('./middleware/requestLogger');
-import * as path from 'path';
-import { Service } from './svc/Service';
 
 const port: number = Number(process.env.PORT) || 5001; // or from a configuration file
-const swaggerUiAssetPath = require('swagger-ui-dist').getAbsoluteFSPath();
-// import models
 
 // set up container
 const container = new Container();
 
 // set up bindings
-container.bind<Service>('Service').to(Service);
+container.bind<Service>(TYPES.Service).to(Service);
 
 // create server
 const server = new InversifyExpressServer(container);
 
+// config app
 server.setConfig((app: any) => {
-  app.use('/api-docs/swagger', express.static(path.join(__dirname, '/src/swagger')));
-  app.use('/api-docs/swagger/assets',
-          express.static(
-            swaggerUiAssetPath,
-          ),
-    );
   app.use(bodyParser.json({ type: 'application/*' }));
   app.use(RequestLogger);
-  app.use(
-    swagger.express({
-      definition: {
-        info: {
-          title: 'Martin\'s Keptn Service',
-          version: '0.2',
-        },
-        externalDocs: {
-          url: '',
-        },
-        // Models can be defined here
-      },
-    }),
-  );
 });
 
 server.setErrorConfig((app: any) => {
@@ -67,11 +44,11 @@ server.setErrorConfig((app: any) => {
       next: express.NextFunction,
     ) => {
       console.error(err.stack);
-      response.status(500).send('Something broke in Martins keptn service!');
+      response.status(500).send('Something broke in my keptn service!');
     },
   );
 });
 
-const app = server.build();
-app.listen(port);
-console.info(`Server is listening on port : ${port}`);
+const serverInstance = server.build();
+serverInstance.listen(port);
+console.info(`Server is listening at http://localhost:${port}`);

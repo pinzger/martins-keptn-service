@@ -34,13 +34,13 @@ spec:
 apiVersion: eventing.knative.dev/v1alpha1
 kind: Subscription
 metadata:
-  name: mmartinsy-keptn-service-tests-finished-subscription
+  name: martins-keptn-service-tests-finished-subscription
   namespace: keptn
 spec:
   channel:
     apiVersion: eventing.knative.dev/v1alpha1
     kind: Channel
-    name: tests-finished
+    name: new-artefact
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1alpha1
