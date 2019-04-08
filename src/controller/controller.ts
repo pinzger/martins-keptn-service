@@ -20,7 +20,7 @@ export class Controller implements interfaces.Controller {
   private getEvents(
     request: express.Request,
     response: express.Response,
-    next: express.NextFunction): Promise<KeptnRequest[]> {
+    next: express.NextFunction): Promise<string> {
 
     return this.service.getKeptnRequest();
   }
