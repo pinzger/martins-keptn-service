@@ -5,7 +5,7 @@ import 'mocha';
 import * as sinon from 'sinon';
 import { cleanUpMetadata } from 'inversify-express-utils';
 import { Service } from '../src/service/service';
-import { Event } from '../src/models/event';
+import { KeptnRequest } from '../src/models/keptnRequest';
 
 describe('Service', () => {
 // tslint:disable-next-line: prefer-const

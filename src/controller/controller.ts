@@ -8,7 +8,7 @@ import {
 } from 'inversify-express-utils';
 
 import { Service } from '../service/service';
-import { Event } from '../models/event';
+import { KeptnRequest } from '../models/keptnRequest';
 // tslint:disable-next-line: import-name
 import TYPES from '../constant/types';
 
@@ -20,17 +20,17 @@ export class Controller implements interfaces.Controller {
   private getEvents(
     request: express.Request,
     response: express.Response,
-    next: express.NextFunction): Promise<Event[]> {
+    next: express.NextFunction): Promise<KeptnRequest[]> {
 
-    return this.service.getEvents();
+    return this.service.getKeptnRequest();
   }
 
   @httpPost('/')
   private handlePostEvent(
     request: express.Request,
     response: express.Response,
-    next: express.NextFunction): Promise<Event> {
+    next: express.NextFunction): Promise<KeptnRequest> {
 
-    return this.service.postEvent(request.body);
+    return this.service.postKeptnRequest(request.body);
   }
 }

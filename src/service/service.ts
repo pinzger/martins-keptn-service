@@ -1,21 +1,21 @@
 import { inject, injectable } from 'inversify';
-import { Event } from '../models/event';
+import { KeptnRequest } from '../models/keptnRequest';
 
 @injectable()
 export class Service {
   constructor() { }
 
   // return empty event array
-  public getEvents(): Promise<Event[]> {
-    return new Promise<Event[]>((resolve, reject) => {
-      resolve(<Event[]>[]);
+  public getKeptnRequest(): Promise<KeptnRequest[]> {
+    return new Promise<KeptnRequest[]>((resolve, reject) => {
+      resolve(<KeptnRequest[]>[]);
     });
   }
 
-  public postEvent(event: Event): Promise<Event> {
-    return new Promise<Event>((resolve, reject) => {
-      console.log(`Received event: ${JSON.stringify(event)}`);
-      resolve(event);
+  public postKeptnRequest(keptnRequest: KeptnRequest): Promise<KeptnRequest> {
+    return new Promise<KeptnRequest>((resolve, reject) => {
+      console.log(`Received event: ${JSON.stringify(keptnRequest)}`);
+      resolve(keptnRequest);
     });
   }
 }
